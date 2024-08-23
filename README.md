@@ -29,3 +29,17 @@ This is a [Tampermonkey](https://www.tampermonkey.net/) user script designed to 
 2. **Enjoy**:
    - Open [Kick.com](https://kick.com) in your browser.
    - Interactions with blacklisted streamers should now be filtered out from the API responses.
+
+## Blacklist Example
+```javascript
+const blacklist = {
+    "streamer": [
+        "streamer1_username",
+        "streamer2_username",
+    ],
+    "tag": [
+        "Gambling",
+        "Tag2",
+    ],
+};
+```
