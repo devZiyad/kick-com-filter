@@ -13,6 +13,7 @@
 const blacklist = {
 	"streamer": [],
 	"tag": [],
+	"category": [],
 };
 
 const api_urls = [
@@ -117,6 +118,10 @@ function filterData(data) {
 				break;
 			case "tag":
 				filterFunction = filterTags;
+				break;
+			case "category":
+				filterFunction = filterCategory;
+				break;
 		}
 
 		data = filterFunction(data, blacklist[filter]);
@@ -151,7 +156,28 @@ function filterTags(data, tagsList) {
 			var isBlacklisted = lowerCaseTagsList.includes(lowerCaseTag);
 			if (isBlacklisted) {
 				console.log(`Filtering out streamer '${stream.channel.user.username}' due to tag '${tag}'`);
-				return !isBlacklisted;
+				return false;
+			}
+		}
+		return true;
+	});
+}
+
+function filterCategory(data, categoryList) {
+	const lowerCaseCategoryList = categoryList.map(category => category.toLowerCase());
+	return data.filter(stream => {
+		var streamCategories = [];
+
+		for (var categoryObject of stream.categories) {
+			streamCategories = streamCategories.concat(categoryObject.name);
+		}
+
+		for (var categoryName of streamCategories) {
+			const lowerCaseCategoryName = categoryName.toLowerCase();
+			var isBlacklisted = lowerCaseCategoryList.includes(lowerCaseCategoryName);
+			if (isBlacklisted) {
+				console.log(`Filtering out streamer '${stream.channel.user.username}' due to category '${categoryName}'`);
+				return false;
 			}
 		}
 		return true;
