@@ -138,11 +138,11 @@ function filterTags(data, tagsList) {
 	return data.filter(stream => {
 		var streamTags = [];
 
-		for (categoryObject of stream.categories) {
+		for (var categoryObject of stream.categories) {
 			streamTags = streamTags.concat(categoryObject.tags);
 		}
 
-		for (tag of streamTags) {
+		for (var tag of streamTags) {
 			var isBlacklisted = includesAny(tag, tagsList);
 			if (isBlacklisted) {
 				console.log(`Filtering out streamer ${stream.channel.user.username} due to tag ${tag}`);
