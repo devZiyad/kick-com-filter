@@ -98,6 +98,13 @@ const api_urls = [
 })();
 
 
+// Utility Functions
+function includesAny(str, arr) {
+	return arr.some(subStr => {
+		return str.includes(subStr)
+	});
+}
+
 // Filtering Functions
 
 function filterData(data) {
