@@ -98,13 +98,7 @@ const api_urls = [
 })();
 
 
-// Utility Functions
-
-function includesAny(str, arr) {
-	return arr.some(subStr => {
-		return str.includes(subStr)
-	});
-}
+// Filtering Functions
 
 function filterData(data) {
 	var filters = Object.keys(blacklist);
@@ -143,7 +137,7 @@ function filterTags(data, tagsList) {
 		}
 
 		for (var tag of streamTags) {
-			var isBlacklisted = includesAny(tag, tagsList);
+			var isBlacklisted = tagsList.includes(tag);
 			if (isBlacklisted) {
 				console.log(`Filtering out streamer '${stream.channel.user.username}' due to tag '${tag}'`);
 				return !isBlacklisted;
