@@ -128,7 +128,7 @@ function filterStreamers(data, streamerList) {
 	return data.filter(stream => {
 		const isBlacklisted = streamerList.includes(stream.channel.user.username);
 		if (isBlacklisted) {
-			console.log(`Filtering out blacklisted streamer ${stream.channel.user.username}`);
+			console.log(`Filtering out blacklisted streamer '${stream.channel.user.username}'`);
 		}
 		return !isBlacklisted;
 	});
@@ -145,7 +145,7 @@ function filterTags(data, tagsList) {
 		for (var tag of streamTags) {
 			var isBlacklisted = includesAny(tag, tagsList);
 			if (isBlacklisted) {
-				console.log(`Filtering out streamer ${stream.channel.user.username} due to tag ${tag}`);
+				console.log(`Filtering out streamer '${stream.channel.user.username}' due to tag '${tag}'`);
 				return !isBlacklisted;
 			}
 		}
