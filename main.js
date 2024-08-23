@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Filter Kick.com
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      2.0
 // @description  Intercept API calls to Kick.com and filter out blacklisted streamers
 // @author       devZiyad
 // @match        *://kick.com/*
@@ -12,6 +12,7 @@
 
 const blacklist = {
 	"streamer": [],
+	"tag": [],
 };
 
 const api_urls = [
@@ -108,10 +109,13 @@ function includesAny(str, arr) {
 function filterData(data) {
 	var filters = Object.keys(blacklist);
 	filters.forEach(filter => {
+		var filterFunction;
 		switch (filter) {
 			case "streamer":
-				var filterFunction = filterStreamers;
+				filterFunction = filterStreamers;
 				break;
+			case "tag":
+				filterFunction = filterTags;
 		}
 
 		data = filterFunction(data, blacklist[filter]);
@@ -124,8 +128,27 @@ function filterStreamers(data, streamerList) {
 	return data.filter(stream => {
 		const isBlacklisted = streamerList.includes(stream.channel.user.username);
 		if (isBlacklisted) {
-			console.log(`Filtering out blacklisted streamer: ${stream.channel.user.username}`);
+			console.log(`Filtering out blacklisted streamer ${stream.channel.user.username}`);
 		}
 		return !isBlacklisted;
+	});
+}
+
+function filterTags(data, tagsList) {
+	return data.filter(stream => {
+		var streamTags = [];
+
+		for (categoryObject of stream.categories) {
+			streamTags = streamTags.concat(categoryObject.tags);
+		}
+
+		for (tag of streamTags) {
+			var isBlacklisted = includesAny(tag, tagsList);
+			if (isBlacklisted) {
+				console.log(`Filtering out streamer ${stream.channel.user.username} due to tag ${tag}`);
+				return !isBlacklisted;
+			}
+		}
+		return true;
 	});
 }
