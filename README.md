@@ -41,5 +41,8 @@ const blacklist = {
         "Gambling",
         "Tag2",
     ],
+    "category": [
+        "Counter-Strike 2",
+    ],
 };
 ```
