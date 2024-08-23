@@ -126,8 +126,10 @@ function filterData(data) {
 }
 
 function filterStreamers(data, streamerList) {
+	const lowerCaseStreamers = streamerList.map(streamer => streamer.toLowerCase());
 	return data.filter(stream => {
-		const isBlacklisted = streamerList.includes(stream.channel.user.username);
+		const lowerCaseUsername = stream.channel.user.username.toLowerCase();
+		const isBlacklisted = lowerCaseStreamers.includes(lowerCaseUsername);
 		if (isBlacklisted) {
 			console.log(`Filtering out blacklisted streamer '${stream.channel.user.username}'`);
 		}
@@ -136,6 +138,7 @@ function filterStreamers(data, streamerList) {
 }
 
 function filterTags(data, tagsList) {
+	const lowerCaseTagsList = tagsList.map(tag => tag.toLowerCase());
 	return data.filter(stream => {
 		var streamTags = [];
 
@@ -144,7 +147,8 @@ function filterTags(data, tagsList) {
 		}
 
 		for (var tag of streamTags) {
-			var isBlacklisted = tagsList.includes(tag);
+			const lowerCaseTag = tag.toLowerCase();
+			var isBlacklisted = lowerCaseTagsList.includes(lowerCaseTag);
 			if (isBlacklisted) {
 				console.log(`Filtering out streamer '${stream.channel.user.username}' due to tag '${tag}'`);
 				return !isBlacklisted;
