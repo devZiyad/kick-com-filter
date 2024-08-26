@@ -6,7 +6,6 @@ This is a [Tampermonkey](https://www.tampermonkey.net/) user script designed to 
 
 ## Features
 
-- **Intercepts Fetch API calls**: Modifies responses from specified API endpoints.
 - **Intercepts XMLHttpRequest calls**: Adjusts responses to filter out blacklisted streamers.
 - **Customizable Blacklist**: Easily configure which streamers to blacklist.
 
