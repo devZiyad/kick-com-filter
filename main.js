@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Filter Kick.com
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      3.0
 // @description  Intercept API calls to Kick.com and filter out blacklisted streamers
 // @author       devZiyad
 // @match        *://kick.com/*
