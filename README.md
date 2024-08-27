@@ -45,6 +45,3 @@ const blacklist = {
     ],
 };
 ```
-
-## Disclaimer
-During testing, I found that the script breaks the ability to send follow and unfollow requests to the site and causes an unsupported browser error. I am currently unaware of any other issues.
